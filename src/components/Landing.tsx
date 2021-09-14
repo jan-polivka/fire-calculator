@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import CalculatorInputs from './CalculatorInputs';
 import CalculationValues from './CalculationValues';
 import CalculatorOutput from './CalculatorOutput';
+import { observer } from 'mobx-react';
 
 const UseStyles = makeStyles({
     appbar: {
@@ -24,15 +25,14 @@ const UseStyles = makeStyles({
   });
 
 
-export const ValuesContext = React.createContext(CalculationValues);
-const myValues = new CalculationValues();
+//export const ValuesContext = React.createContext(CalculationValues);
+const CalculationStore = new CalculationValues();
 
 const landing = () => {
     
     const classes = UseStyles();
 
-    return (        
-        <ValuesContext.Provider value={myValues}>
+    return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appbar}>
                 <Toolbar>
@@ -59,17 +59,21 @@ const landing = () => {
                 </Grid>
                 <Grid item xs={2}>
                     <Paper elevation={3}>
-                        <CalculatorInputs/>
+                        <CalculatorInputs store={CalculationStore}/>
                     </Paper>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={2}>
                     <Paper elevation={3}>
-                        <CalculatorOutput/>
+                        Hello
+                    </Paper>
+                </Grid>
+                <Grid item xs={8}>
+                    <Paper elevation={3}>
+                        <CalculatorOutput store={CalculationStore}/>
                     </Paper>
                 </Grid>
             </Grid>
         </div>
-        </ValuesContext.Provider>
     );
 };
 
